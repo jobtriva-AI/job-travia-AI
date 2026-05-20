@@ -1,0 +1,35 @@
+import streamlit as st
+import pdfplumber
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+
+st.title("AI Recruitment Matcher")
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+uploaded_file = st.file_uploader("Upload Resume (PDF)")
+job_description = st.text_area("Paste Job Description Here")
+
+if uploaded_file and job_description:
+    resume_text = ""
+
+    with pdfplumber.open(uploaded_file) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            if text:
+                resume_text += text
+
+    resume_embedding = model.encode([resume_text])
+    job_embedding = model.encode([job_description])
+
+    similarity = cosine_similarity(resume_embedding, job_embedding)[0][0]
+    score = round(similarity * 100, 2)
+
+    st.subheader(f"Match Score: {score}%")
+
+    if score > 75:
+        st.success("Strong Match")
+    elif score > 50:
+        st.warning("Moderate Match")
+    else:
+        st.error("Low Match")
