@@ -14,7 +14,7 @@ This is an AI-powered recruitment screening tool built for hiring candidates for
 streamlit
 pdfplumber
 scikit-learn
-sentence-transformers
+
 
 =======
 # Job Triva - AI Recruitment Matcher
