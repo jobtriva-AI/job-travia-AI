@@ -1,12 +1,11 @@
 <<<<<<< HEAD
 import streamlit as st
 import pdfplumber
-from sentence_transformers import SentenceTransformer
+
 from sklearn.metrics.pairwise import cosine_similarity
 
 st.title("AI Recruitment Matcher")
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
 
 uploaded_file = st.file_uploader("Upload Resume (PDF)")
 job_description = st.text_area("Paste Job Description Here")
@@ -36,12 +35,12 @@ if uploaded_file and job_description:
 =======
 import streamlit as st
 import pdfplumber
-from sentence_transformers import SentenceTransformer
+
 from sklearn.metrics.pairwise import cosine_similarity
 
 st.title("AI Recruitment Matcher")
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+
 
 uploaded_file = st.file_uploader("Upload Resume (PDF)")
 job_description = st.text_area("Paste Job Description Here")
