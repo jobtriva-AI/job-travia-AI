@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-streamlit
-pdfplumber
-sentence-transformers
-scikit-learn
-=======
-streamlit
-pdfplumber
-sentence-transformers
-scikit-learn
->>>>>>> 7e92a882a2b4f8e4818fe28022f40a8c63b2b697
-torchs
+streamlit==1.32.0
+pdfplumber==0.10.3
+scikit-learn==1.4.2
+numpy==1.26.4
+pandas==2.2.2
