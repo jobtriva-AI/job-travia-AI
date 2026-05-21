@@ -1,63 +1,31 @@
 import streamlit as st
 import pdfplumber
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
-# PAGE TITLE
-st.set_page_config(page_title="Job Triva AI Recruiter")
+st.title("Job Triva AI Recruiter")
 
-st.title("🚀 Job Triva AI Recruitment System")
-st.write("Upload a resume and compare it with the job description.")
+st.write("Upload resume and compare with job description")
 
-# JOB DESCRIPTION INPUT
-job_description = st.text_area(
-    "Enter Job Description",
-    height=200,
-    placeholder="Paste Reliance job description here..."
-)
+job = st.text_area("Job Description")
 
-# RESUME UPLOAD
-uploaded_file = st.file_uploader(
-    "Upload Candidate Resume (PDF)",
-    type=["pdf"]
-)
+file = st.file_uploader("Upload PDF Resume", type=["pdf"])
 
-# FUNCTION TO EXTRACT TEXT FROM PDF
-def extract_text_from_pdf(pdf_file):
+def extract(pdf):
     text = ""
-
-    with pdfplumber.open(pdf_file) as pdf:
-        for page in pdf.pages:
-            extracted = page.extract_text()
-
-            if extracted:
-                text += extracted
-
+    with pdfplumber.open(pdf) as f:
+        for p in f.pages:
+            if p.extract_text():
+                text += p.extract_text()
     return text
 
-# MAIN LOGIC
-if uploaded_file and job_description:
+if file and job:
+    resume = extract(file)
 
-    resume_text = extract_text_from_pdf(uploaded_file)
+    st.subheader("Resume Text")
+    st.write(resume)
 
-    documents = [resume_text, job_description]
+    st.subheader("Job Text")
+    st.write(job)
 
-    cv = CountVectorizer().fit_transform(documents)
-
-    similarity_score = cosine_similarity(cv)[0][1]
-
-    match_percentage = round(similarity_score * 100, 2)
-
-    st.subheader("📊 Matching Result")
-
-    st.success(f"Candidate Match Score: {match_percentage}%")
-
-    # SIMPLE DECISION
-    if match_percentage >= 60:
-        st.write("✅ Good Match for Reliance Job Role")
-    else:
-        st.write("❌ Candidate does not strongly match the role")
-
-    # SHOW EXTRACTED RESUME TEXT
-    with st.expander("View Extracted Resume Text"):
-        st.write(resume_text)
+    if len(resume) > 0:
+        match = min(100, len(resume) / len(job) * 100)
+        st.success(f"Basic Match Score: {round(match,2)}%")
