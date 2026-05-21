@@ -19,12 +19,8 @@ if uploaded_file and job_description:
             if text:
                 resume_text += text
 
-    resume_embedding = model.encode([resume_text])
-    job_embedding = model.encode([job_description])
-
-    similarity = cosine_similarity(resume_embedding, job_embedding)[0][0]
-    score = round(similarity * 100, 2)
-
+   
+  
     st.subheader(f"Match Score: {score}%")
 
     if score > 75:
@@ -54,11 +50,8 @@ if uploaded_file and job_description:
             if text:
                 resume_text += text
 
-    resume_embedding = model.encode([resume_text])
-    job_embedding = model.encode([job_description])
-
-    similarity = cosine_similarity(resume_embedding, job_embedding)[0][0]
-    score = round(similarity * 100, 2)
+    
+    
 
     st.subheader(f"Match Score: {score}%")
 
