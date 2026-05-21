@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 streamlit
 pdfplumber
 sentence-transformers
 scikit-learn
+=======
+streamlit
+pdfplumber
+sentence-transformers
+scikit-learn
+>>>>>>> 7e92a882a2b4f8e4818fe28022f40a8c63b2b697
 torchs
